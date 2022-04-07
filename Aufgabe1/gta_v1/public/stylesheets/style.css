@@ -47,7 +47,12 @@ a {
 /* ### TODO ### Styles for other HTML elements */
 
 /* ... your code here ... */
-
+input[type="text"] {
+  width: 80%;
+  line-height: 2em;
+  border: 1px solid;
+  margin: 1rem;
+}
 
 /* Grid styles (no changes required) */
 
@@ -111,26 +116,81 @@ a {
 
 /* ... your code here ... */
 
+.header {
+  display: flex;
+  background-color: #EEEEEE;
+}
+
+
+
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
 
+.main {
+  display: grid;
+  grid-template-columns: repeat(12, [col-start] 1fr);
+  gap: 20px;
+}
 
 /* ### TODO ### Styles for Tagging component */
 
 /* ... your code here ... */
+.main__tagging  {
+  grid-column: col-start 1 / span 5;
+  display: flex;
+  flex-flow: column;
+  margin: 1rem;
+}
 
+.tagging_field {
+  display: flex;
+  flex-flow: column;
+  margin: 1rem;
+}
+
+#lat {
+  background-color: #EEEEEE;
+}
+
+#long {
+  background-color: #EEEEEE;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+.main__discovery {
+  grid-column: col-start 6 / span 7;
+  display: flex;
+  flex-flow: column;
+  margin: 1rem;
+}
 
+.discovery_field {
+  display: flex;
+  flex-flow: column;
+}
+
+.discovery__wrapper {
+  display: flex;
+}
+
+
+ul li {
+  background-color: #EEEEEE;
+  color: #21BFDF;
+  outline: 1px solid
+}
 
 /* ### TODO ### Styles for Footer Component */
 
 /* ... your code here ... */
 
+.footer {
+  background-color: #EEEEEE;
+}
 
 /* ### TODO ### Media Queries */
 
