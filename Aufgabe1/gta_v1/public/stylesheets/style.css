@@ -171,7 +171,10 @@ h2 {
   display: grid;
   grid-template-columns: repeat(12, [col-start] 1fr);
   gap: 20px;
+  display: flex;
+  flex-flow: row;
 }
+
 
 /* ### TODO ### Styles for Tagging component */
 
@@ -204,6 +207,7 @@ h2 {
   grid-column: col-start 6 / span 7;
   display: flex;
   flex-flow: column;
+  flex-shrink: 0;
   margin: 1rem;
 }
 
@@ -214,13 +218,28 @@ h2 {
 
 .discovery__wrapper {
   display: flex;
+  margin-top: 1.5rem;
 }
 
+.result_map_text{
+  display: block;
+}
+.discovery__map {
+  padding: 6px;
+  margin-left: 1rem;
+  margin-top: .4rem;
+}
 
-ul li {
+.discovery__results {
   background-color: #EEEEEE;
   color: #21BFDF;
-  outline: 1px solid
+  border: 1px solid;
+  border-color: #cdcdcd;
+  
+  padding: 1em 0.7em 1em 0.7em;
+  margin-bottom: 1rem;
+  font-size: 120%;
+  font-weight: bold;
 }
 
 /* ### TODO ### Styles for Footer Component */
@@ -232,5 +251,11 @@ ul li {
 }
 
 /* ### TODO ### Media Queries */
+
+@media (max-width: 850px) {
+  .main {
+    flex-flow: row wrap;
+  }
+}
 
 /* ... your code here ... */

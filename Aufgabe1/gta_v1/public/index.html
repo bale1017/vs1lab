@@ -40,7 +40,7 @@
                         <input type="text" id="name" name="Name" placeholder="e.g. Central Berlin" maxlength="10" required> <br>
                         <label for="Hashtag">Hashtag:</label> 
                         <input type="text" id="hash" name="Hashtag" placeholder="e.g. #ber" maxlength="11"pattern = "[#][A-Za-z]{1,10}$"> <br>
-                        <input type="submit" id="add" name="Add Tag"> <br>
+                        <input type="submit" id="add" name="Add Tag" value="Add Tag"> <br>
                     </div>
                 </fieldset>
                     
@@ -60,9 +60,9 @@
                 <fieldset>
                     <legend>Search</legend> <br>
                     <div class="discovery_field">
-                        <label for="Search">Search term or keywords:</label> 
-                        <input type="text" id="search" name="Search" placeholder="e.g. Berlin"> <br>
-                        <input type="submit" id="searchConfirm" name="SearchConfirm">
+                        <label for="Search">Search term or keywords:</label>
+                        <input type="text" id="search" name="Search" placeholder="e.g. Berlin">
+                        <input type="submit" id="searchConfirm" name="SearchConfirm" value="Search" disabled>
                     </div>
                 </fieldset>
                     
@@ -74,15 +74,18 @@
 
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
-                    <ul class="discovery__results" id="discoveryResults">
-                        <li>Castle (49.01379, 8.404435) #sight</li>
-                        <li>IWI (49.01379, 8.390071) #edu</li>
-                    </ul>
+                    <div id="discoveryResults">
+                        <div class="discovery__results" >Castle (49.01379, 8.404435) #sight</div>
+                        <div class="discovery__results" >IWI (49.01379, 8.390071) #edu</div>
+                    </div>
                 </div>
 
                 <div class="discovery__map">
                     <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
-                    <span>Result map</span>
+                    
+                    <div class="result_map_text">
+                        Result map
+                    </div>
                 </div>
             </div>
         </section>
