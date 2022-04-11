@@ -256,6 +256,7 @@ h2 {
 @media (max-width: 850px) {
   .main {
     flex-flow: row wrap;
+    display: block;
   }
 }
 
