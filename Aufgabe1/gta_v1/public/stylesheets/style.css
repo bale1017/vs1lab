@@ -141,7 +141,7 @@ h2 {
 .header {
   display: flex;
   background-color: #EEEEEE;
-  padding: 3%;
+  padding: 3rem;
 }
 
 .header__image {
