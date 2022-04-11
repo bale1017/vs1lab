@@ -214,6 +214,7 @@ h2 {
 .discovery_field {
   display: flex;
   flex-flow: column;
+  width:30%;
 }
 
 .discovery__wrapper {
@@ -257,6 +258,9 @@ h2 {
   .main {
     flex-flow: row wrap;
     display: block;
+  }
+  .discovery_field, .main__tagging{
+    width:100%;
   }
 }
 
