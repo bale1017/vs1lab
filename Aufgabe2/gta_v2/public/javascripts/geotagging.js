@@ -90,7 +90,7 @@ class MapManager {
         let tagList = `You,${latitude},${longitude}`;
         tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "");
 
-        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v5/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
+        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 
         return mapQuestUrl;
@@ -107,10 +107,15 @@ function updateLocation() {
 
     try {
         LocationHelper.findLocation((locationHelper) => {
-            document.getElementById("lat").value = locationHelper.latitude;
-            document.getElementById("long").value = locationHelper.longitude;
-            document.getElementById("hidden_lat").value = locationHelper.latitude;
-            document.getElementById("hidden_long").value = locationHelper.longitude;
+            const longitude = locationHelper.longitude;
+            const latitude = locationHelper.latitude;
+            document.getElementById("lat").value = latitude;
+            document.getElementById("long").value = longitude;
+            document.getElementById("hidden_lat").value = latitude;
+            document.getElementById("hidden_long").value = longitude;
+
+            const mapManager = new MapManager("OCrGXx3RLc0uBLUz3Gkvf6pF4Lt9W8Yi");
+            document.getElementById("mapView").src = mapManager.getMapUrl(latitude, longitude);
         })
     } catch(Error) {
         alert(Error.message);
