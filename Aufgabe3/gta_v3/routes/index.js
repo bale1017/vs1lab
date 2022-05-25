@@ -31,6 +31,8 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 
+const GeoTagExamples = require("../models/geotag-examples.js");
+
 /**
  * Route '/' for HTTP 'GET' requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -43,7 +45,7 @@ const GeoTagStore = require('../models/geotag-store');
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
 
-  res.render('index', { taglist: [new GeoTag('Castle', 49.013790, 8.404435, '#sight')] })
+  res.render('index', { taglist: [new GeoTag('Castle', 49.013790, 8.404435, '#sight')]})
 });
 
 /**
@@ -63,9 +65,8 @@ router.get('/', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/tagging', (req, res) => {
-  var add = new GeoTag(req.body,49.013790, 8.404435, '#sight');
-  GeoTagStore.InMemoryGeoTagStore.addGeoTag(add);
-  res.render('index', { taglist: GeoTagStore.store })
+  var geoTagStore = new GeoTagStore();
+  res.render('index', { taglist: geoTagStore.store })
 });
 
 /**
