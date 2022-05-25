@@ -28,40 +28,40 @@ const GeoTagExamples = require("./geotag-examples");
  */
 class InMemoryGeoTagStore{
 
-    #store = GeoTag[0];
+    store;
     // TODO: ... your code here ...
 
     constructor(){
+        store = GeoTag[0];
         GeoTagExamples.tagList.forEach(tag => {
-            this.#store.push(new geotag(tag[0], tag[1], tag[2], tag[3]))
+            store.push(new geotag(tag[0], tag[1], tag[2], tag[3]))
         })
     }
 
-
     addGeoTag(geotag){
-        this.#store.push(geotag);
+        store.push(geotag);
     }
 
     removeGeoTag(name){
         index = 0;
-        this.#store.forEach(gt => {
+        this.store.forEach(gt => {
             if (gt.name == name){
                 return;
             }
             index++;
         })
 
-        if (index == this.#store.length){
+        if (index == this.store.length){
             return;
         }
-        this.#store.splice(index, 1);
+        this.store.splice(index, 1);
     }
 
     getNearbyGeoTags(long, lat, distance){
         
         closeTags = GeoTag[0];
-        this.#store.forEach(gt => {
-            var dist = Math.sqrt(Math.pow((gt.longitute - long), 2) + Math.pow((gt.latitude - lat), 2));
+        this.store.forEach(gt => {
+            var dist = Math.sqrt(Math.pow((gt.longitude - long), 2) + Math.pow((gt.latitude - lat), 2));
             if (dist <= distance){
                 closeTags.push(gt);
             }

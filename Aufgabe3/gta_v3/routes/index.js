@@ -42,7 +42,8 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+
+  res.render('index', { taglist: [new GeoTag('Castle', 49.013790, 8.404435, '#sight')] })
 });
 
 /**
@@ -61,6 +62,11 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/tagging', (req, res) => {
+  var add = new GeoTag(req.body,49.013790, 8.404435, '#sight');
+  GeoTagStore.InMemoryGeoTagStore.addGeoTag(add);
+  res.render('index', { taglist: GeoTagStore.store })
+});
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
