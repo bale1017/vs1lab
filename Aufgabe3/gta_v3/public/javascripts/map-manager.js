@@ -38,3 +38,5 @@
         return mapQuestUrl;
     }
 }
+
+module.exports = MapManager;

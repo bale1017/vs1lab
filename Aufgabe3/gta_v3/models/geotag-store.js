@@ -33,37 +33,37 @@ class InMemoryGeoTagStore{
 
     constructor(){
         GeoTagExamples.tagList.forEach(tag => {
-            this.store.push(new GeoTag(tag[0], tag[1], tag[2], tag[3]))
+            this.#store.push(new GeoTag(tag[0], tag[1], tag[2], tag[3]))
         })
     }
 
     get store(){
-        return this.store;
+        return  this.#store;
     }
 
     addGeoTag(geotag){
-        this.store.push(geotag);
+        this.#store.push(geotag);
     }
 
     removeGeoTag(name){
-        index = 0;
-        this.store.forEach(gt => {
+        var index = 0;
+        this.#store.forEach(gt => {
             if (gt.name == name){
                 return;
             }
             index++;
         })
 
-        if (index == this.store.length){
+        if (index == this.#store.length){
             return;
         }
-        this.store.splice(index, 1);
+        this.#store.splice(index, 1);
     }
 
     getNearbyGeoTags(long, lat, distance){
         
-        closeTags = GeoTag[0];
-        this.store.forEach(gt => {
+        var closeTags = [];
+        this.#store.forEach(gt => {
             var dist = Math.sqrt(Math.pow((gt.longitude - long), 2) + Math.pow((gt.latitude - lat), 2));
             if (dist <= distance){
                 closeTags.push(gt);
@@ -73,7 +73,7 @@ class InMemoryGeoTagStore{
     }
 
     searchNearbyGeotags(long, lat, distance, keyword){
-        closeTags = GeoTag[0];
+        var closeTags = [];
         this.getNearbyGeoTags(long, lat, distance).forEach(gt => {
             if (gt.name == keyword || gt.hashtag == keyword){
                 closeTags.push(gt);

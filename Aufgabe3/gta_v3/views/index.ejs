@@ -34,9 +34,11 @@
                 <legend>Add a new GeoTag</legend>
                     <div class="tagging_field">
                         <label for="Latitude">Latitude:</label> 
-                        <input type="text" id="lat" name="Latitude" placeholder="49.01379" readonly="readonly">
+                        <input type="text" id="lat" name="Latitude" placeholder="<%= latitude %>"  value=<%latitude%>>
+                            
                         <label for="Longitude">Longitude:</label> 
-                        <input type="text" id="long" name="Longitude" placeholder="3.90072" readonly="readonly">
+                        <input type="text" id="long" name="Longitude" placeholder="<%= longitude %>" value=<%longitude%>>
+                            
                         <label for="Name">Name:</label> 
                         <input type="text" id="name" name="Name" placeholder="e.g. Central Berlin" maxlength="10" required>
                         <label for="Hashtag">Hashtag:</label> 
@@ -67,7 +69,7 @@
                         <input type="hidden" id="hidden_lat" name="Latitude">
                         <input type="hidden" id="hidden_long" name="Longitude">
 
-                        <input type="submit" id="searchConfirm" name="SearchConfirm" value="Search" disabled>
+                        <input type="submit" id="searchConfirm" name="SearchConfirm" value="Search">
                     </div>
                 </fieldset>
                     
@@ -101,7 +103,9 @@
     <footer class="footer">
         <span>(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
-    <script src="./javascripts/geotagging.js"></script>
+    <script src="../public/javascripts/geotagging.js"></script>
+    <script src="../public/javascripts/location-helper.js"></script>
+    <script src="../public/javascripts/map-manager.js"></script>
 </body>
 
 </html>
