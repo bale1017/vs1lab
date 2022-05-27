@@ -10,25 +10,13 @@
 console.log("The geoTagging script is going to start...");
 
 /**
- * A class to help using the HTML5 Geolocation API.
- */
- const LocationHelper = require("./location-helper.js");
-
-/**
- * A class to help using the MapQuest map service.
- */
- const MapManager = require("./map-manager.js");
-
-
-/**
  * TODO: 'updateLocation'
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
+
 // ... your code here ...
 function updateLocation(helper) {
- //   if (document.getElementById("lat").value == "" || document.getElementById("long") == ""){
-       
                 const longitude = helper.longitude;
                 const latitude = helper.latitude;
                 document.getElementById("lat").value = latitude;
@@ -36,13 +24,30 @@ function updateLocation(helper) {
                 document.getElementById("hidden_lat").value = latitude;
                 document.getElementById("hidden_long").value = longitude;
 
+                console.log("update location" + latitude +" "+ longitude);
                 const mapManager = new MapManager("OCrGXx3RLc0uBLUz3Gkvf6pF4Lt9W8Yi");
-                document.getElementById("mapView").src = mapManager.getMapUrl(latitude, longitude);
-           
-    }
-//}
+
+                var mapView = document.getElementById("mapView");
+                var taglist_json = mapView.getAttribute('data-tags');
+                let tags = JSON.parse(taglist_json);
+
+                document.getElementById("mapView").src = mapManager.getMapUrl(latitude, longitude, tags);
+                
+    //}
+}
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    LocationHelper.findLocation(updateLocation);
+    var lat = document.getElementById("hidden_lat").value;
+    var long = document.getElementById("hidden_long").value;
+
+   if (lat == "" || long == "")
+   {
+       LocationHelper.findLocation(updateLocation);
+   }
+   else
+   {
+       var helper = new LocationHelper(lat, long);
+       updateLocation(helper);
+   }
 });
 

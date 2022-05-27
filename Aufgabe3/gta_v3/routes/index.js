@@ -47,12 +47,9 @@ const LocationHelper = require("../public/javascripts/location-helper.js");
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-// LocationHelper.findLocation(callback =>{
-    res.render('index', { taglist: geoTagStore.store,
-                          latitude: req.body.Latitude,
-                          longitude: req.body.Longitude});
-//  });
-  
+  res.render('index', { taglist: geoTagStore.store,
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude});
 });
 
 /**
@@ -76,8 +73,8 @@ router.get('/', (req, res) => {
 router.post('/tagging', (req, res) => {
   geoTagStore.addGeoTag(new GeoTag(req.body.Name, req.body.Latitude, req.body.Longitude, req.body.Hashtag))
   res.render('index', { taglist: geoTagStore.store,
-                        latitude: 1,
-                        longitude: 1})
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude})
 });
 
 /**
@@ -100,9 +97,9 @@ router.post('/tagging', (req, res) => {
 
 router.post('/discovery', (req, res) => {
   console.log(req.body);
-  res.render('index', { taglist: geoTagStore.searchNearbyGeotags(1, 1, 100, req.body.Search),
-                        latitude: 1,
-                        longitude: 1})
+  res.render('index', { taglist: geoTagStore.searchNearbyGeotags(req.body.Latitude, req.body.Longitude, 100, req.body.Search),
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude})
 });
 
 
