@@ -82,9 +82,10 @@
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
                     <div id="discoveryResults">
-                        <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                            <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
-                        <% }); %>
+                            <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
+                                <div class="discovery__results" ><li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li></div>
+                            <% }); %>
+                        
                     </div>
                 </div>
 
