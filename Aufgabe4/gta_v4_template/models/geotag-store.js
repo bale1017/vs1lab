@@ -42,12 +42,16 @@ class InMemoryGeoTagStore{
     }
 
     addGeoTag(geotag){
+        var quit=false;
         this.#store.forEach(gt => {
-            if (gt.name == keyword){
+            if (gt.name == geotag.name){
+                quit=true;
                 return;
             }
         })
-        this.#store.push(geotag);
+        if(!quit){
+            this.#store.push(geotag);
+        }
     }
     
     removeGeoTag(name){

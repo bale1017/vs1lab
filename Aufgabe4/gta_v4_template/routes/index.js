@@ -81,13 +81,19 @@ router.post('/discovery', (req, res) => {
  */
  router.get('/api/geotags', (req, res) => {
       var tags;
-      if (req.query.searchterm === undefined){
-        if (req.query.Latitude === undefined && req.query.Longitude === undefined){
-            tags = geoTagStore.searchGeotags(req.query.searchterm);
+      if (req.query.searchterm !== undefined){
+        if (req.query.latitude === undefined && req.query.longitude === undefined){
+            tags = geoTagStore.searchGeoTags(req.query.searchterm);
         }
-        tags = geoTagStore.searchNearbyGeotags(req.query.Latitude, req.query.Longitude, 100, req.query.searchterm);
+        else
+        {
+          tags = geoTagStore.searchNearbyGeotags(req.query.latitude, req.query.longitude, 100, req.query.searchterm);
+        }
       }
-      tags = geoTagStore.store;
+      else
+      {
+         tags = geoTagStore.store;
+      }
       res.setHeader('Content-Type', 'application/json');
       res.json({ tags })
 });
@@ -106,12 +112,13 @@ router.post('/discovery', (req, res) => {
  */
 
  router.post('/api/geotags', (req, res) => {
-   geoTagStore.add(JSON.parse(req.body));
+   geoTagStore.addGeoTag(new GeoTag(req.body.name, req.body.latitude, req.body.longitude, req.body.hashtag));
    var url = "/api/geotags/" + req.body.name;
    
    var tag = geoTagStore.searchGeoTags(req.body.name);
-   res.query.id = req.body.name;
+  // res.query.id = req.body.name;
    res.setHeader('Content-Type', 'application/json');
+   res.setHeader('URL', url);
    res.json({ tag })
    
 });
