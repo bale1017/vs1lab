@@ -42,9 +42,14 @@ class InMemoryGeoTagStore{
     }
 
     addGeoTag(geotag){
+        this.#store.forEach(gt => {
+            if (gt.name == keyword){
+                return;
+            }
+        })
         this.#store.push(geotag);
     }
-
+    
     removeGeoTag(name){
         var index = 0;
         this.#store.forEach(gt => {
@@ -80,6 +85,16 @@ class InMemoryGeoTagStore{
             }
         })
         return closeTags;
+    }
+
+    searchGeoTags(keyword){
+        var tags = [];
+        this.#store.forEach(gt => {
+            if (gt.name == keyword || gt.hashtag == keyword){
+                tags.push(gt);
+            }
+        })
+        return tags;
     }
 }
 

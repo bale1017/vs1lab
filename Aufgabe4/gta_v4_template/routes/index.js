@@ -31,6 +31,7 @@ var geoTagStore = new GeoTagStore();
 const GeoTagExamples = require("../models/geotag-examples.js");
 
 const LocationHelper = require("../public/javascripts/location-helper.js");
+const { json } = require('express');
 
 // App routes (A3)
 
@@ -60,7 +61,6 @@ router.post('/tagging', (req, res) => {
 
 // Route '/discovery' for HTTP 'POST' requests.
 router.post('/discovery', (req, res) => {
-  console.log(req.body);
   res.render('index', { taglist: geoTagStore.searchNearbyGeotags(req.body.Latitude, req.body.Longitude, 100, req.body.Search),
     latitude: req.body.Latitude,
     longitude: req.body.Longitude})
@@ -79,8 +79,19 @@ router.post('/discovery', (req, res) => {
  * If 'searchterm' is present, it will be filtered by search term.
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
+ router.get('/api/geotags', (req, res) => {
+      var tags;
+      if (req.query.searchterm === undefined){
+        if (req.query.Latitude === undefined && req.query.Longitude === undefined){
+            tags = geoTagStore.searchGeotags(req.query.searchterm);
+        }
+        tags = geoTagStore.searchNearbyGeotags(req.query.Latitude, req.query.Longitude, 100, req.query.searchterm);
+      }
+      tags = geoTagStore.store;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({ tags })
+});
 
-// TODO: ... your code here ...
 
 
 /**
@@ -94,7 +105,17 @@ router.post('/discovery', (req, res) => {
  * The new resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+ router.post('/api/geotags', (req, res) => {
+   geoTagStore.add(JSON.parse(req.body));
+   var url = "/api/geotags/" + req.body.name;
+   
+   var tag = geoTagStore.searchGeoTags(req.body.name);
+   res.query.id = req.body.name;
+   res.setHeader('Content-Type', 'application/json');
+   res.json({ tag })
+   
+});
+
 
 
 /**
@@ -107,7 +128,11 @@ router.post('/discovery', (req, res) => {
  * The requested tag is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
+ router.get('/api/geotags/:id', (req, res) => {
+   var tag = geoTagStore.searchGeoTags(req.params.id);
+   res.setHeader('Content-Type', 'application/json');
+   res.json(tag)
+});
 
 
 /**
