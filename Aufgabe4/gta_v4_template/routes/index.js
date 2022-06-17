@@ -156,7 +156,16 @@ router.post('/discovery', (req, res) => {
  * The updated resource is rendered as JSON in the response. 
  */
 
-// TODO: ... your code here ...
+ router.put('/api/geotags/:id', (req, res) => {
+  var tag = geoTagStore.searchGeoTag(req.params.id);
+  tag.name = req.body.name;
+  tag.hashtag = req.body.hashtag;
+  tag.latitude = req.body.latitude;
+  tag.longitude = req.body.longitude;
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ tag })
+  
+});
 
 
 /**
@@ -170,6 +179,11 @@ router.post('/discovery', (req, res) => {
  * The deleted resource is rendered as JSON in the response.
  */
 
-// TODO: ... your code here ...
-
+ router.delete('/api/geotags/:id', (req, res) => {
+  var tag = geoTagStore.searchGeoTag(req.params.id);
+  geoTagStore.removeGeoTag(req.params.id);
+  res.setHeader('Content-Type', 'application/json');
+  res.json({ tag })
+  
+});
 module.exports = router;

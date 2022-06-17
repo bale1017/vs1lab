@@ -100,6 +100,17 @@ class InMemoryGeoTagStore{
         })
         return tags;
     }
+
+    searchGeoTag(id){
+        var tag;
+        this.#store.forEach(gt => {
+            if (gt.name == id){
+               tag = gt;
+               return;
+            }
+        })
+        return tag;
+    }
 }
 
 module.exports = InMemoryGeoTagStore
