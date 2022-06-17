@@ -94,8 +94,9 @@ router.post('/discovery', (req, res) => {
       {
          tags = geoTagStore.store;
       }
+      
       res.setHeader('Content-Type', 'application/json');
-      res.json({ tags })
+      res.json({ taglist : tags })
 });
 
 
@@ -112,14 +113,15 @@ router.post('/discovery', (req, res) => {
  */
 
  router.post('/api/geotags', (req, res) => {
-   geoTagStore.addGeoTag(new GeoTag(req.body.name, req.body.latitude, req.body.longitude, req.body.hashtag));
-   var url = "/api/geotags/" + req.body.name;
+  var tag = new GeoTag(req.body.name, req.body.latitude, req.body.longitude, req.body.hashtag);
+  geoTagStore.addGeoTag(tag);
+  var url = "/api/geotags/" + req.body.name;
    
-   var tag = geoTagStore.searchGeoTags(req.body.name);
+   
   // res.query.id = req.body.name;
-   res.setHeader('Content-Type', 'application/json');
-   res.setHeader('URL', url);
-   res.json({ tag })
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('URL', url);
+  res.json({ tag })
    
 });
 

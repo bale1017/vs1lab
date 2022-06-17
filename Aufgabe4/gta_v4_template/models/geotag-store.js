@@ -94,7 +94,7 @@ class InMemoryGeoTagStore{
     searchGeoTags(keyword){
         var tags = [];
         this.#store.forEach(gt => {
-            if (gt.name == keyword || gt.hashtag == keyword){
+            if (gt.name === keyword || gt.hashtag === keyword){
                 tags.push(gt);
             }
         })
