@@ -26,6 +26,11 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+var geoTagStore = new GeoTagStore();
+
+const GeoTagExamples = require("../models/geotag-examples.js");
+
+const LocationHelper = require("../public/javascripts/location-helper.js");
 
 // App routes (A3)
 
@@ -39,7 +44,26 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  res.render('index', { taglist: geoTagStore.store,
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude});
+});
+
+
+// Route '/tagging' for HTTP 'Post' requests.
+router.post('/tagging', (req, res) => {
+  geoTagStore.addGeoTag(new GeoTag(req.body.Name, req.body.Latitude, req.body.Longitude, req.body.Hashtag))
+  res.render('index', { taglist: geoTagStore.store,
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude})
+});
+
+// Route '/discovery' for HTTP 'POST' requests.
+router.post('/discovery', (req, res) => {
+  console.log(req.body);
+  res.render('index', { taglist: geoTagStore.searchNearbyGeotags(req.body.Latitude, req.body.Longitude, 100, req.body.Search),
+    latitude: req.body.Latitude,
+    longitude: req.body.Longitude})
 });
 
 // API routes (A4)
