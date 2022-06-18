@@ -81,13 +81,14 @@
 
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
-                    <div id="discoveryResults">
-                            <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                                <div class="discovery__results" ><li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li></div>
-                            <% }); %>
-                        
+                <div id="discoveryResults">  </div>
+                    <div class="paging">
+                        <input type="button" id="pre_page" value="<" >
+                        <div class="pageNum" id="pageNumber">  </div>
+                        <input type="button" id="nex_page" value=">" >
                     </div>
                 </div>
+                
 
                 <div class="discovery__map">
                     <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags="<%= JSON.stringify(taglist) %>" />

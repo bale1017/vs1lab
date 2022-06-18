@@ -26,87 +26,91 @@ const GeoTagExamples = require("./geotag-examples");
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-class InMemoryGeoTagStore{
+class InMemoryGeoTagStore {
 
     #store = [];
     // TODO: ... your code here ...
 
-    constructor(){
+    constructor() {
         GeoTagExamples.tagList.forEach(tag => {
             this.#store.push(new GeoTag(tag[0], tag[1], tag[2], tag[3]))
         })
     }
 
-    get store(){
-        return  this.#store;
+    get store() {
+        return this.#store;
     }
 
-    addGeoTag(geotag){
-        var quit=false;
+    addGeoTag(geotag) {
+        var quit = false;
         this.#store.forEach(gt => {
-            if (gt.name == geotag.name){
-                quit=true;
+            if (gt.name == geotag.name) {
+                quit = true;
                 return;
             }
         })
-        if(!quit){
+        if (!quit) {
             this.#store.push(geotag);
         }
     }
-    
-    removeGeoTag(name){
+
+    removeGeoTag(name) {
         var index = 0;
         this.#store.forEach(gt => {
-            if (gt.name == name){
+            if (gt.name == name) {
                 return;
             }
             index++;
         })
 
-        if (index == this.#store.length){
+        if (index == this.#store.length) {
             return;
         }
         this.#store.splice(index, 1);
     }
 
-    getNearbyGeoTags(long, lat, distance){
-        
+    getNearbyGeoTags(long, lat, distance) {
+
         var closeTags = [];
         this.#store.forEach(gt => {
             var dist = Math.sqrt(Math.pow((gt.longitude - long), 2) + Math.pow((gt.latitude - lat), 2));
-            if (dist <= distance){
+            if (dist <= distance) {
                 closeTags.push(gt);
             }
         })
         return closeTags;
     }
 
-    searchNearbyGeotags(long, lat, distance, keyword){
+    searchNearbyGeotags(long, lat, distance, keyword) {
         var closeTags = [];
         this.getNearbyGeoTags(long, lat, distance).forEach(gt => {
-            if (gt.name == keyword || gt.hashtag == keyword){
+            if (gt.name == keyword || gt.hashtag == keyword) {
                 closeTags.push(gt);
             }
         })
         return closeTags;
     }
 
-    searchGeoTags(keyword){
+    searchGeoTags(keyword) {
         var tags = [];
+        if (keyword === "") {
+            return this.#store;
+        }
+
         this.#store.forEach(gt => {
-            if (gt.name === keyword || gt.hashtag === keyword){
+            if (gt.name === keyword || gt.hashtag === keyword) {
                 tags.push(gt);
             }
         })
         return tags;
     }
 
-    searchGeoTag(id){
+    searchGeoTag(id) {
         var tag;
         this.#store.forEach(gt => {
-            if (gt.name == id){
-               tag = gt;
-               return;
+            if (gt.name == id) {
+                tag = gt;
+                return;
             }
         })
         return tag;

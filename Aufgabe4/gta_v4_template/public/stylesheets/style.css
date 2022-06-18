@@ -254,6 +254,14 @@ li{
   padding: 3rem;
 }
 
+#pre_page, #nex_page {
+  text-align: center;
+}
+
+.pageNum {
+  text-align: center;
+}
+
 /* ### TODO ### Media Queries */
 
 @media (max-width: 850px) {
